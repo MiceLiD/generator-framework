@@ -4,13 +4,13 @@ First, install [Yeoman](http://yeoman.io) and generator-desktop using [npm](http
 
 ```bash
 npm install -g yo
-npm install -g generator-framework
+npm install -g generator-framework-by-sevenlee
 ```
 
 Then generate your new project:
 
 ```bash
-yo framework
+yo framework-by-sevenlee
 ```
 
 ## Getting To Know Yeoman
