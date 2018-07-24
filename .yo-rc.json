@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "micelid",
+      "authorEmail": "sevenmicelid@gmail.com",
+      "authorUrl": "http://www.sevenlee.cf/framework"
+    }
+  }
+}
