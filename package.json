@@ -1,5 +1,5 @@
 {
-  "name": "generator-framework",
+  "name": "generator-framework-by-sevenlee",
   "version": "1.0.0",
   "description": "koa2 + react or vue + webpack4",
   "files": [
@@ -10,11 +10,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/micelid/generator-framework.git"
+    "url": "https://github.com/micelid/generator-framework-by-sevenlee.git"
   },
-  "homepage": "https://github.com/micelid/generator-framework",
+  "homepage": "https://github.com/micelid/generator-framework-by-sevenlee",
   "bugs": {
-    "url": "https://github.com/micelid/generator-framework/issues"
+    "url": "https://github.com/micelid/generator-framework-by-sevenlee/issues"
   },
   "author": "lidongsevenlee",
   "license": "MIT",
