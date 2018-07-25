@@ -3,10 +3,9 @@ const fs = require('fs')
 const views = require('koa-views')
 const Logger = require('mini-logger')
 const config = require('../config/index')
+const isProd = process.env.NODE_ENV === 'production'
 
-const NODE_ENV = process.env.NODE_ENV
-
-const Koa = NODE_ENV === 'development' ? require('koa') : require('../extensions/koa.ext')
+const Koa = !isProd ? require('koa') : require('../extensions/koa.ext')
 const app = new Koa()
 
 /* logger */
@@ -34,7 +33,7 @@ appRouter(router)
 app.use(router.routes()).use(router.allowedMethods())
 
 /* listen */
-if (NODE_ENV === 'development') {
+if (!isProd) {
   app.listen(config.nodePort)
   console.log(`development mode, server listening at ${config.nodePort}`)
 } else {

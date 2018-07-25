@@ -1,7 +1,6 @@
 const path = require('path')
 const config = require('../config/index')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const baseConfig = require('./webpack.config.base.js')
 

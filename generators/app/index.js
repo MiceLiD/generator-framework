@@ -12,7 +12,7 @@ module.exports = class extends Generator {
   }
 
   initializing() {
-    this.log('开始构建...')
+    this.log('Start building...')
   }
 
   prompting() {
@@ -20,121 +20,162 @@ module.exports = class extends Generator {
       {
         type: 'input',
         name: 'name',
-        message: 'You project name',
+        message: 'Your project name',
+        validate: (name) => {
+          if (name.includes(' ')) {
+            this.log(' cannot contain spaces！')
+            return
+          }
+          return true
+        },
         default: this.appname
       },
       {
         type: 'input',
         name: 'version',
-        message: 'You project version',
+        message: 'Your project version',
         default: '0.0.1'
       },
       {
         type: 'input',
         name: 'description',
-        message: 'You project description',
+        message: 'Your project description',
         default: ''
       },
       {
         type: 'input',
         name: 'author',
-        message: 'You project author',
+        message: 'Your project author',
         default: ''
+      },
+      {
+        type: 'input',
+        name: 'appPrefix',
+        message: 'Your project app-prefix and static folder name',
+        default: 'framework',
+        validate: (appPrefix) => {
+          if (appPrefix.includes(' ')) {
+            this.log(' cannot contain spaces！')
+            return
+          }
+          return true
+        }
+      },
+      {
+        type: 'list',
+        name: 'feStack',
+        message: 'Choose front-end technology stack',
+        choices: ['vue', 'react'],
+        default: 0
+      },
+      {
+        type: 'confirm',
+        name: 'install',
+        message: 'Do you need automatic installation dependencies?',
+        default: true
       }
     ]).then(answers => {
       this.appname = answers.name
       this.version = answers.version
       this.description = answers.description
       this.author = answers.author
+      this.feStack = answers.feStack
+      this.install = answers.install
+      this.appPrefix = answers.appPrefix
     })
   }
 
-  configuring() {
-    let defaultSetting = this.fs.readJSON(this.templatePath('package.json'))
-    let packageSetting = {
-      name: this.appname,
-      version: this.version,
-      description: this.description,
-      author: this.author,
-      keyword: [],
-      license: 'ISC',
-      main: 'index.js',
-      scripts: defaultSetting.scripts,
-      dependencies: defaultSetting.dependencies,
-      devDependencies: defaultSetting.devDependencies
-    }
-    this.fs.writeJSON(
-      this.destinationPath(`./${this.appname}/package.json`),
-      packageSetting
-    )
+  default() {
+    let dirName = this.appname
+    
+    if (fs.existsSync(dirName)) {
+      dirName = dirName + '_' + new Date().getTime()
+      this.log('The current folder already exists and a timestamped folder has been created for you：' + chalk.yellow(dirName))
+    } 
+    mkdirp(dirName)
+    this.destinationRoot(this.destinationPath(dirName))
+    this.appname = dirName
   }
 
   writing() {
     /* 拷贝所需的文件. */
+    let flag = this.feStack === 'vue'
 
     this.fs.copy(
-      this.templatePath("build"),
+      this.templatePath(flag ? "_build_vue" : "_build_react"),
       this.destinationPath("build")
     );
     this.fs.copy(
-      this.templatePath("client"),
+      this.templatePath(flag ? "_client_vue" : "_client_react"),
       this.destinationPath("client")
     );
-    this.fs.copy(
-      this.templatePath("config"),
-      this.destinationPath("config")
+    this.fs.copyTpl(
+      this.templatePath("_config"),
+      this.destinationPath("config"),
+      {
+        appPrefix: this.appPrefix
+      }
     );
     this.fs.copy(
-      this.templatePath("extensions"),
+      this.templatePath("_extensions"),
       this.destinationPath("extensions")
     );
     this.fs.copy(
-      this.templatePath("server"),
+      this.templatePath("_server"),
       this.destinationPath("server")
     );
     this.fs.copy(
-      this.templatePath("shared"),
+      this.templatePath("_shared"),
       this.destinationPath("shared")
     );
     this.fs.copy(
-      this.templatePath(".babelrc_temp"),
+      this.templatePath(flag ? ".babelrc_tpl_vue" : ".babelrc_tpl_react"),
       this.destinationPath(".babelrc")
     );
-    this.fs.copy(
-      this.templatePath("README_TEMP.md"),
-      this.destinationPath("README.md")
+    this.fs.copyTpl(
+      this.templatePath("_README_TPL.md"),
+      this.destinationPath("README.md"),
+      {
+        appname: this.appname,
+        appPrefix: this.appPrefix
+      }
     );
     this.fs.copy(
-      this.templatePath(".gitignore_temp"),
+      this.templatePath(".gitignore_tpl"),
       this.destinationPath(".gitignore")
     );
     this.fs.copy(
-      this.templatePath("start.sh"),
+      this.templatePath("_start.sh"),
       this.destinationPath("start.sh")
     );
     this.fs.copy(
-      this.templatePath("stop.sh"),
+      this.templatePath("_stop.sh"),
       this.destinationPath("stop.sh")
     );
     this.fs.copy(
-      this.templatePath("restart.sh"),
+      this.templatePath("_restart.sh"),
       this.destinationPath("restart.sh")
     );
+    this.fs.copyTpl(
+      this.templatePath(flag ? "_package_vue.json" : "_package_react.json"),
+      this.destinationPath("package.json"),
+      {
+        appname: this.appname,
+        version: this.version,
+        description: this.description,
+        author: this.author
+      }
+    );
   }
-  default() {
-    if (path.basename(this.destinationPath()) !== this.appname) {
-      this.log(
-        'Your app must be inside a folder named ' +
-          chalk.yellow(this.appname) +
-          '\n' +
-          "I'll automatically create this folder."
-      )
-      mkdirp(this.appname)
-      this.destinationRoot(this.destinationPath(this.appname))
-    }
+  end() {
+    this.log('Build completed!')
+    this.log("Your project folder named " + chalk.yellow(this.appname) + '.')
+    this.log(`bash: run 'cd ./${this.appname} && ${!this.install ? 'npm install && npm run dev' : 'npm run dev'}' you will see the page at: http://localhost:8000/${this.appPrefix}`)
   }
 
   install() {
-    this.installDependencies({ bower: false })
+    if (this.install) {
+      this.installDependencies({ bower: false })
+    }
   }
 }
