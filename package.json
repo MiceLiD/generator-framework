@@ -1,6 +1,6 @@
 {
   "name": "generator-framework-by-sevenlee",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "koa2 + react or vue + webpack4",
   "files": [
     "generators/app"
