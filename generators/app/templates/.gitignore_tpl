@@ -1,4 +1,7 @@
 node_modules/
 static/
 .DS_Store
-shared/logs/*
+shared/logs/*.log
+shared/pids/*.pid
+shared/sockets/*.sock
+shared/nodeStd/*.log
