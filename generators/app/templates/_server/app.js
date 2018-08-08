@@ -23,7 +23,10 @@ app.context.logger = Logger({
 /* 模板引擎 */
 app.use(views(path.join(__dirname, './views'), {
   map: { hbs: 'handlebars' },
-  extension: 'hbs'
+  extension: 'hbs',
+  options: {
+    helpers: require('../extensions/hbs.ext')
+  }
 }))
 
 /* router */
