@@ -6,7 +6,7 @@ module.exports = {
   },
   optimization: {
     splitChunks: {
-      chunks: 'all'
+      chunks: 'initial'
     }
   },
   resolve: {
@@ -21,7 +21,7 @@ module.exports = {
   module: {
       rules: [
         {
-            test: /\.(jsx)$/,
+            test: /\.(jsx|js)$/,
             loader: 'babel-loader',
             exclude: [
               path.join(__dirname, '../node_modules')

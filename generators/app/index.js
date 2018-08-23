@@ -40,7 +40,7 @@ module.exports = class extends Generator {
         type: 'input',
         name: 'description',
         message: 'Your project description',
-        default: ''
+        default: 'This is an fullstack project'
       },
       {
         type: 'input',
