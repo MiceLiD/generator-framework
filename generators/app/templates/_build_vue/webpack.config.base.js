@@ -31,7 +31,9 @@ module.exports = {
         {
           test: /\.vue$/,
           loader: 'vue-loader',
-          include: path.join(__dirname, '../client/')
+          include: [
+            path.join(__dirname, '../client/'), 
+            path.join(__dirname, '../node_modules/')]
         },
         {
             test: /\.css$/,
