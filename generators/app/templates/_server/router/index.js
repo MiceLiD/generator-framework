@@ -1,15 +1,20 @@
+const fs = require('fs')
+const path = require('path')
+const render = async ctx => {
+  await ctx.render('index', { title: 'framwork' })
+}
 module.exports = (app) => {
-  app.get('/', async ctx => {
-    await ctx.render('index', { title: 'framework' })
-  })
+  app.get('/', render)
 
-  /* api */
-  app.post('/api/getusername', async (ctx) => {
-    ctx.body = JSON.stringify({
-      code: 0,
-      data: {
-        username: 'seven'
-      }
+  fs.readdir(path.join(__dirname, '../controller/'), (err, result) => {
+    if (err) {
+      console.log(err)
+      ctx.logger.error(err)
+      return
+    }
+    result.forEach(r => {
+      const name = r.slice(0, r.indexOf('.'))
+      app.post(`/api/${name}`, require(`../controller/${r}`))
     })
   })
 }
