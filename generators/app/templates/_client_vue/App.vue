@@ -12,7 +12,7 @@ export default {
     }
   },
   created() {
-    f_Request('/getusername', {})
+    f_Request('/getUserInfo', {})
       .then(data => {
         if (!data) return
         this.username = data.username

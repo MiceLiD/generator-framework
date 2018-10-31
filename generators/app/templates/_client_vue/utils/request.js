@@ -10,14 +10,14 @@ export default (path, payload) => {
   .then(res => res.json())
   .then(res => {
     if (res.code) {
-      alert(res.data)
+      alert(JSON.stringify(res.data))
       return null
     } else {
       return res.data
     }
   })
   .catch(err => {
+    alert(JSON.stringify(err))
     return null
-    alert(err)
   })
 }

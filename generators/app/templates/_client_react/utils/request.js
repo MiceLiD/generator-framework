@@ -1,5 +1,4 @@
 import config from '../../config/index'
-
 export default (path, payload) => {
   return fetch(`${window.location.origin}${config.appPrefix}/api${path}`, {
     method: 'POST',
@@ -11,14 +10,14 @@ export default (path, payload) => {
   .then(res => res.json())
   .then(res => {
     if (res.code) {
-      alert(res.data)
+      alert(JSON.stringify(res.data))
       return null
     } else {
       return res.data
     }
   })
   .catch(err => {
+    alert(JSON.stringify(err))
     return null
-    alert(err)
   })
 }

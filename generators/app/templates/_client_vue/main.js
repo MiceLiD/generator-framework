@@ -4,7 +4,8 @@ import App from './App.vue'
 import f_Request from './utils/request.js'
 window.f_Request = f_Request
 
-import './favicon.ico'
+import './assets/images/favicon.ico'
+import './assets/styles/reset.less'
 
 new Vue({
   el: '#app',

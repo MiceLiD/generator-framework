@@ -11,7 +11,7 @@ class App extends Component {
     this.state = {}
   }
   componentWillMount() {
-    f_Request('/getusername', {})
+    f_Request('/getUserInfo', {})
       .then(data => {
         if (!data) return
         this.setState({

@@ -11,19 +11,19 @@ module.exports = {
   ...baseConfig,
   mode: 'production',
   output: {
-    path: path.join(__dirname, `../static/${moduleName}`),
+    path: path.join(__dirname, `../public/${moduleName}`),
     filename: '[name].[contenthash].js',
     // 指定静态资源服务路径，包括懒加载时的异步请求路径
-    publicPath: `/static/${moduleName}/`
+    publicPath: `/public/${moduleName}/`
   },
   performance: {
     hints: false
   },
   plugins: [
-    new CleanWebpackPlugin([`static/${moduleName}`], {root: path.join(__dirname, '../')}),
+    new CleanWebpackPlugin([`public/${moduleName}`], {root: path.join(__dirname, '../')}),
     new ManifestPlugin({
       fileName: 'manifest.json',
-      basePath: `static/${moduleName}/`
+      basePath: `public/${moduleName}/`
     }),
     new VueLoaderPlugin()
   ]

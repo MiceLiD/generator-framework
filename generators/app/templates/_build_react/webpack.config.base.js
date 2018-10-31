@@ -6,7 +6,13 @@ module.exports = {
   },
   optimization: {
     splitChunks: {
-      chunks: 'initial'
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        },
+      }
     }
   },
   resolve: {

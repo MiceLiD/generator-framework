@@ -3,9 +3,9 @@ const handlebars = require('handlebars')
 const isDev = process.env.NODE_ENV === 'development'
 const moduleName = config.moduleName
 
-const manifestJson = isDev ? {} : require(`../static/${moduleName}/manifest.json`)
+const manifestJson = isDev ? {} : require(`../public/${moduleName}/manifest.json`)
 const devPath = `http://localhost:${config.devPort}`
-const prodPath = `static/${moduleName}`
+const prodPath = `public/${moduleName}`
 
 module.exports = {
   agree_button: () => {

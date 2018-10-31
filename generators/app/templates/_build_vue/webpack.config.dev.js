@@ -8,7 +8,7 @@ module.exports = {
   ...baseConfig,
   mode: 'development',
   output: {
-    path: path.join(__dirname, '../static/dist'),
+    path: path.join(__dirname, '../public/dist'),
     filename: '[name].js',
     // 指定静态资源服务路径，包括懒加载时的异步请求路径
     publicPath: `http://localhost:${config.devPort}/`
@@ -20,7 +20,7 @@ module.exports = {
   plugins: [
     new ManifestPlugin({
       fileName: 'manifest.json',
-      basePath: '/static/dist/'
+      basePath: '/public/dist/'
     }),
     new VueLoaderPlugin()
   ]
