@@ -129,6 +129,10 @@ module.exports = class extends Generator {
       this.destinationPath("shared")
     );
     this.fs.copy(
+      this.templatePath("_public"),
+      this.destinationPath("public")
+    );
+    this.fs.copy(
       this.templatePath(flag ? ".babelrc_tpl_vue" : ".babelrc_tpl_react"),
       this.destinationPath(".babelrc")
     );

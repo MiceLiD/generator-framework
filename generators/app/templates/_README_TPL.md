@@ -23,8 +23,8 @@ server {
     location /<%= appPrefix %> {
         proxy_pass http://<%= appname%>_prod;
     }
-    location /static/<%= appPrefix %> {
-        alias {your workspace}/<%= appname %>/static/<%= appPrefix %>/;
+    location /public/<%= appPrefix %> {
+        alias {your workspace}/<%= appname %>/public/<%= appPrefix %>/;
     }
 }
 ```
