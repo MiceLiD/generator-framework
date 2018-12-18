@@ -172,9 +172,9 @@ module.exports = class extends Generator {
     );
   }
   end() {
-    fs.unlinkSync(path.join(__dirname, `../../../${this.appname}/public/gitkeep`))
-    fs.writeFileSync(path.join(__dirname, `../../../${this.appname}/public/.gitkeep`), '')
-    fs.readdir(path.join(__dirname, `../../../${this.appname}/shared/`), (err, result) => {
+    fs.unlinkSync(this.destinationPath('public') + '/gitkeep')
+    fs.writeFileSync(this.destinationPath('public') + '/.gitkeep', '')
+    fs.readdir(this.destinationPath('shared'), (err, result) => {
       if (err) {
         if (err) {
           console.log(err)
@@ -182,8 +182,8 @@ module.exports = class extends Generator {
         return
       }
       result.forEach(r => {
-        fs.unlinkSync(path.join(__dirname, `../../../${this.appname}/shared/${r}/gitkeep`))
-        fs.writeFileSync(path.join(__dirname, `../../../${this.appname}/shared/${r}/.gitkeep`), '')
+        fs.unlinkSync(this.destinationPath('shared') + `/${r}/gitkeep`)
+        fs.writeFileSync(this.destinationPath('shared') + `/${r}/.gitkeep`, '')
       })
     })
     this.log('Build completed!')
