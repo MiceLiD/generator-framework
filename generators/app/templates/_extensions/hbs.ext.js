@@ -15,7 +15,7 @@ module.exports = {
   },
   xIco: () => isDev ? 
     `<link rel="shortcut icon" href="${devPath}/favicon.ico">` : 
-    `<link rel="shortcut icon" href="${prodPath}/favicon.ico">`,
+    `<link rel="shortcut icon" href="${manifestJson[`${prodPath}/favicon.ico`]}">`,
 
   xStyle: (name) =>  isDev ? 
     `<link rel="stylesheet" href="${devPath}/${name}.css">` : 

@@ -3,6 +3,7 @@ const fs = require('fs')
 const views = require('koa-views')
 const Logger = require('mini-logger')
 const config = require('../config/index')
+const bodyParser = require('koa-bodyparser')
 const isDev = process.env.NODE_ENV === 'development'
 
 if (!isDev && !fs.existsSync(path.join(__dirname, '../static'))) {
@@ -27,6 +28,13 @@ app.use(views(path.join(__dirname, './views'), {
   options: {
     helpers: require('../extensions/hbs.ext')
   }
+}))
+
+/* form parser */
+app.use(bodyParser({
+  formLimit: '5mb',
+  jsonLimit: '5mb',
+  textLimit: '5mb'
 }))
 
 /* router */

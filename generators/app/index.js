@@ -172,6 +172,20 @@ module.exports = class extends Generator {
     );
   }
   end() {
+    fs.unlinkSync(path.join(__dirname, `../../../${this.appname}/public/gitkeep`))
+    fs.writeFileSync(path.join(__dirname, `../../../${this.appname}/public/.gitkeep`), '')
+    fs.readdir(path.join(__dirname, `../../../${this.appname}/shared/`), (err, result) => {
+      if (err) {
+        if (err) {
+          console.log(err)
+        }
+        return
+      }
+      result.forEach(r => {
+        fs.unlinkSync(path.join(__dirname, `../../../${this.appname}/shared/${r}/gitkeep`))
+        fs.writeFileSync(path.join(__dirname, `../../../${this.appname}/shared/${r}/.gitkeep`), '')
+      })
+    })
     this.log('Build completed!')
     this.log("Your project folder named " + chalk.yellow(this.appname) + '.')
     this.log(`bash: run 'cd ./${this.appname} && ${!this.install ? 'npm install && npm run dev' : 'npm run dev'}' you will see the page at: http://localhost:8000/${this.appPrefix}`)

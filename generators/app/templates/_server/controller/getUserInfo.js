@@ -3,6 +3,7 @@
  * @param {*} ctx 
  */
 module.exports = async ctx => {
+  console.log(ctx.request.body)
   ctx.body = JSON.stringify({
     code: 0,
     data: {
