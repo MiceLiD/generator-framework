@@ -3,6 +3,7 @@ const config = require('../config/index')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const baseConfig = require('./webpack.config.base.js')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const webpack = require('webpack')
 
 module.exports = {
   ...baseConfig,
@@ -14,7 +15,13 @@ module.exports = {
     publicPath: `http://localhost:${config.devPort}/`
   },
   devServer: {
-    port: config.devPort
+    port: config.devPort,
+    hot: true,
+    host: '0.0.0.0',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, GET'
+    }
   },
   devtool: 'eval-source-map',
   plugins: [
@@ -22,6 +29,7 @@ module.exports = {
       fileName: 'manifest.json',
       basePath: '/public/dist/'
     }),
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new webpack.HotModuleReplacementPlugin()
   ]
 }
