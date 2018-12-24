@@ -6,7 +6,7 @@ const config = require('../config/index')
 const bodyParser = require('koa-bodyparser')
 const isDev = process.env.NODE_ENV === 'development'
 
-if (!isDev && !fs.existsSync(path.join(__dirname, '../static'))) {
+if (!isDev && !fs.existsSync(path.join(__dirname, `../public/${config.moduleName}`))) {
   throw new Error('You have not executed npm run build yet!')
   return
 }
