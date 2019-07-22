@@ -17,25 +17,25 @@ const OpenChromePlugin = class {
       }
     }
   }
-  notify(signal) {
+  notify(signal, desc) {
     const strategy = {
       success: chalk.green,
       failed: chalk.red
     }
     console.log(strategy[signal](
-      `Open ${signal} \n
+      `Open Chrome ${signal}, ${desc} \n
         -- App listening at: ${this.interal_ip_addr}:${this.port}${this.app_prefix} \n
         -- Your external url is: ${this.extenal_ip_addr}:${this.port}${this.app_prefix}`
     ))
   }
   apply(compiler) {
-    compiler.hooks.done.tap('my-plugin', this.once(compilation => {
+    compiler.hooks.done.tap('open-chrome-plugin', this.once(compilation => {
       childProc.exec(`open -a "Google Chrome" ${this.interal_ip_addr}:${this.port}${this.app_prefix}`, (err) => {
         if (err) {
-          this.notify('failed')
+          this.notify('failed', 'Make sure you have chrome installed')
           return
         }
-        this.notify('success')
+        this.notify('success', 'And...')
       })
     }))
   }

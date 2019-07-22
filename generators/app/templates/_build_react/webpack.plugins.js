@@ -17,7 +17,7 @@ const OpenChromePlugin = class {
       }
     }
   }
-  notify(signal) {
+  notify(signal, desc) {
     const strategy = {
       success: chalk.green,
       failed: chalk.red
@@ -29,7 +29,7 @@ const OpenChromePlugin = class {
     ))
   }
   apply(compiler) {
-    compiler.hooks.done.tap('my-plugin', this.once(compilation => {
+    compiler.hooks.done.tap('open-chrome-plugin', this.once(compilation => {
       childProc.exec(`open -a "Google Chrome" ${this.interal_ip_addr}:${this.port}${this.app_prefix}`, (err) => {
         if (err) {
           this.notify('failed', 'Make sure you have chrome installed')
