@@ -4,7 +4,7 @@ const isDev = process.env.NODE_ENV === 'development'
 const moduleName = config.moduleName
 
 const manifestJson = isDev ? {} : require(`../public/${moduleName}/manifest.json`)
-const devPath = `http://localhost:${config.devPort}`
+const devPath = `${config.localAddr}:${config.devPort}`
 const prodPath = `public/${moduleName}`
 
 module.exports = {

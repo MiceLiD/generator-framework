@@ -25,30 +25,35 @@ module.exports = {
     hot: true
   },
   module: {
-      rules: [
-        {
-            test: /\.(jsx|js)$/,
-            loader: 'babel-loader',
-            exclude: [
-              path.join(__dirname, '../node_modules')
-            ]
-        },
-        {
-            test: /\.css$/,
-            use: ['style-loader', 'css-loader']
-        },
-        {
-            test: /\.less$/,
-            use: ['style-loader', 'css-loader', 'less-loader']
-        },
-        {
-            test: /\.(png|jpe?g|gif|svg|woff2?|ttf|otf|ico)(\?.*)?$/,
-            use: 'url-loader'
-        }, 
-        {
-            test: /\.ico$/,
-            loader: 'file-loader?name=[name].[ext]'
-        }
+    rules: [
+      {
+        test: /\.(jsx|js)$/,
+        loader: 'babel-loader',
+        exclude: [
+          path.join(__dirname, '../node_modules')
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.less$/,
+        use: ['style-loader', 'css-loader', {
+          loader: 'less-loader',
+          options: {
+            javascriptEnabled: true
+          }
+        }]
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg|woff2?|ttf|otf|ico)(\?.*)?$/,
+        use: 'url-loader'
+      }, 
+      {
+        test: /\.ico$/,
+        loader: 'file-loader?name=[name].[ext]'
+      }
     ]
   }
 }
