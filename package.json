@@ -19,7 +19,7 @@
   "author": "lidongsevenlee",
   "license": "MIT",
   "dependencies": {
-    "mkdirp": "^0.5.1",
+    "mkdirp": "^1.0.4",
     "yeoman-generator": "^3.0.0"
   }
 }
